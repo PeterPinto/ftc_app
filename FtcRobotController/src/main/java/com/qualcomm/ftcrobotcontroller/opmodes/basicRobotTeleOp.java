@@ -3,7 +3,10 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class testOpMode extends OpMode {
+/**
+ * Created by Peter on 11/3/2015.
+ */
+public class basicRobotTeleOp extends OpMode {
 
     DcMotor motor1, motor2;
     Robot robot;

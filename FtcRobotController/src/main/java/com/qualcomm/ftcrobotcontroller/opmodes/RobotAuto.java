@@ -8,10 +8,14 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  */
 public class RobotAuto extends Robot {
 
+    private boolean hasEncoders;
+    private final static double TURN_SPEED = .25;
 
-    public RobotAuto(DcMotor left, DcMotor right, int driveType, boolean hasEncoders)
+    public RobotAuto(int driveType, DcMotor left, DcMotor right, boolean encoders)
     {
-        super(left, right, driveType);
+        super(driveType, left, right);
+
+        hasEncoders = encoders;
     }
 
     public void runAutonomous()
@@ -21,11 +25,20 @@ public class RobotAuto extends Robot {
 
     private void driveForward(double power, double distance)
     {
+        if(hasEncoders) {
+            driveForwardEncoders(power, distance);
+            return;
+        }
         //find rpm of motors at full power
 
         //multiply by abs value of power to get adjusted rpm
 
         //divide rpm by distance to get rotations
+    }
+
+    private void driveForwardEncoders(double power, double distance)
+    {
+
     }
 
     private void turnLeft(int degrees)

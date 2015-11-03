@@ -14,19 +14,20 @@ public class Robot {
     public final static int TANK_DRIVE = 1;
     public final static int ARCADE_DRIVE = 2;
     public final static int OMNI_DRIVE = 3;
-    private int DRIVE_TYPE;
+    private int driveType;
     private boolean squareInputs = false;
 
     private DcMotor leftMotor;
     private DcMotor rightMotor;
+    private DcMotor peripheral1;
+    private DcMotor peripheral2;
 
 
-    public Robot(DcMotor left, DcMotor right, int driveType) {
+    public Robot(int drive, DcMotor left, DcMotor right) {
 
         leftMotor = left;
         rightMotor = right;
-
-        DRIVE_TYPE = driveType;
+        driveType = drive;
 
         initRobot();
     }
@@ -50,7 +51,7 @@ public class Robot {
     {
         double leftPower, rightPower;
 
-        switch(DRIVE_TYPE)
+        switch(driveType)
         {
             case TANK_DRIVE:
                 if(squareInputs)
@@ -97,5 +98,23 @@ public class Robot {
         rightMotor.setPower(right);
     }
 
+    public boolean inputsSquared()
+    {
+        return squareInputs;
+    }
 
+    public int getDriveType()
+    {
+        return driveType;
+    }
+
+    public void setDriveType(int drive)
+    {
+        driveType = drive;
+    }
+
+    public void setSquareInputs(boolean square)
+    {
+        squareInputs = square;
+    }
 }
