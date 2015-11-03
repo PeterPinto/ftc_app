@@ -27,8 +27,8 @@ public class Robot {
     private int driveType;
     private boolean squareInputs = false;
 
-    private DcMotor leftMotor;
-    private DcMotor rightMotor;
+    protected DcMotor leftMotor;
+    protected DcMotor rightMotor;
     private DcMotor peripheral1;
     private DcMotor peripheral2;
 

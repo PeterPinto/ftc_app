@@ -1,10 +1,16 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Created by Peter on 11/2/2015.
+ */
+
+/*
+ * This class is an extension of Robot for autonomous mode.  This is not an OpMode, but may
+ * be implemented in one by creating an object of this class.
  */
 public class RobotAuto extends Robot {
 
@@ -16,6 +22,17 @@ public class RobotAuto extends Robot {
         super(driveType, left, right);
 
         hasEncoders = encoders;
+
+        initRobotAuto();
+    }
+
+    private void initRobotAuto()
+    {
+        if(hasEncoders)
+        {
+            leftMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            rightMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+        }
     }
 
     public void runAutonomous()
@@ -23,6 +40,7 @@ public class RobotAuto extends Robot {
 
     }
 
+    //Takes a power and distance and translates that to the Robot.drive method
     private void driveForward(double power, double distance)
     {
         if(hasEncoders) {
