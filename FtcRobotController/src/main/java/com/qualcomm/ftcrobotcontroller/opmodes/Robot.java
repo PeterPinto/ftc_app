@@ -117,11 +117,18 @@ public class Robot {
 
     //Public get / set methods ***************************
 
-    public boolean inputsSquared()
+    //squareInputs
+    public boolean getSquareInputs()
     {
         return squareInputs;
     }
 
+    public void setSquareInputs(boolean square)
+    {
+        squareInputs = square;
+    }
+
+    //driveType
     public int getDriveType()
     {
         return driveType;
@@ -132,10 +139,6 @@ public class Robot {
         driveType = drive;
     }
 
-    public void setSquareInputs(boolean square)
-    {
-        squareInputs = square;
-    }
 
     //****************************************************
 }

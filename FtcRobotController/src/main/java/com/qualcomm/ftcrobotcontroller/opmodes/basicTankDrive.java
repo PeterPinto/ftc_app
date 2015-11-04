@@ -18,6 +18,7 @@ public class basicTankDrive extends OpMode {
         motor2 = hardwareMap.dcMotor.get("m2");
 
         robot = new Robot(Robot.TANK_DRIVE, motor1, motor2);
+        robot.setSquareInputs(true);
     }
 
     @Override

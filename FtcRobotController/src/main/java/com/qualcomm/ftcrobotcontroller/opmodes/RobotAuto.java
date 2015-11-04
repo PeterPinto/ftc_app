@@ -40,7 +40,7 @@ public class RobotAuto extends Robot {
 
     }
 
-    //Takes a power and distance and translates that to the Robot.drive method
+    //Takes a power and distance and translates that to the Robot.drive method TODO: Implement driveForward method
     private void driveForward(double power, double distance)
     {
         if(hasEncoders) {
@@ -54,11 +54,13 @@ public class RobotAuto extends Robot {
         //divide rpm by distance to get rotations
     }
 
+    //TODO: Implement encoder support for driveForward
     private void driveForwardEncoders(double power, double distance)
     {
 
     }
 
+    //TODO: Implement turning methods
     private void turnLeft(int degrees)
     {
 
