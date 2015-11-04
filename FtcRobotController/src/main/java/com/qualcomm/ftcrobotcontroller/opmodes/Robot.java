@@ -35,17 +35,15 @@ public class Robot {
         initRobot();
     }
 
-    //Call any important functions at initialization time.  Also set any fields that are unset by the constructor
-    private void initRobot()
-    {
+    //Call any important functions at initialization time.  Also set any fields that are left unset by the constructor
+    private void initRobot() {
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 
     //Allow for the the robot to be passed the gamepad object instead of setting values directly.
-    public void drive(Gamepad gamepad)
-    {
-        double leftX  = gamepad.left_stick_x;
-        double leftY  = gamepad.left_stick_y;
+    public void drive(Gamepad gamepad) {
+        double leftX = gamepad.left_stick_x;
+        double leftY = gamepad.left_stick_y;
         double rightX = gamepad.right_stick_x;
         double rightY = gamepad.right_stick_y;
 
@@ -53,32 +51,28 @@ public class Robot {
     }
 
     //Takes drive values and converts them into motor power values
-    public void drive(double leftX, double leftY, double rightX, double rightY)
-    {
+    public void drive(double leftX, double leftY, double rightX, double rightY) {
         double leftPower, rightPower;
 
-        if(squareInputs)
-        {
-            leftX  = squareInput(leftX);
-            leftY  = squareInput(leftY);
+        if (squareInputs) {
+            leftX = squareInput(leftX);
+            leftY = squareInput(leftY);
             rightX = squareInput(rightX);
             rightY = squareInput(rightY);
         }
 
         //Execute different drive code based on the driveType field
-        switch(driveType)
-        {
+        switch (driveType) {
             case TANK_DRIVE:  //TODO: Test turning cap for Tank drive
                 leftPower = leftY;
                 rightPower = rightY;
 
-                if(Math.abs(leftPower - rightPower) >= 1)
-                    if(leftPower > 0)
-                    {
-                        leftPower  = .5;
+                if (Math.abs(leftPower - rightPower) >= 1)
+                    if (leftPower > 0) {
+                        leftPower = .5;
                         rightPower = -.5;
                     } else {
-                        leftPower  = -.5;
+                        leftPower = -.5;
                         rightPower = .5;
                     }
                 break;
@@ -88,13 +82,12 @@ public class Robot {
                 rightPower = leftY + leftX;
 
                 //Cap turning speed
-                if(Math.abs(leftPower - rightPower) >= 1)
-                    if(leftPower > 0)
-                    {
-                        leftPower  = .5;
+                if (Math.abs(leftPower - rightPower) >= 1)
+                    if (leftPower > 0) {
+                        leftPower = .5;
                         rightPower = -.5;
                     } else {
-                        leftPower  = -.5;
+                        leftPower = -.5;
                         rightPower = .5;
                     }
                 break;
@@ -102,7 +95,7 @@ public class Robot {
             //Omni drive not yet implemented
 
             default:
-                leftPower  = 0;
+                leftPower = 0;
                 rightPower = 0;
         }
 
@@ -111,20 +104,18 @@ public class Robot {
     }
 
     //Sets the power of the motors
-    private void setMotorPower(double left, double right)
-    {
+    private void setMotorPower(double left, double right) {
         //Clip values to prevent errors
-        left  = Range.clip(left , -1, 1);
+        left = Range.clip(left, -1, 1);
         right = Range.clip(right, -1, 1);
 
         leftMotor.setPower(left);
         rightMotor.setPower(right);
     }
 
-    private double squareInput(double input)
-    {
-        if(input >= 0f)
-            input =   input * input;
+    private double squareInput(double input) {
+        if (input >= 0f)
+            input = input * input;
         else
             input = -(input * input);
 
@@ -134,24 +125,20 @@ public class Robot {
     //Public get / set methods ***************************
 
     //squareInputs
-    public boolean getSquareInputs()
-    {
+    public boolean getSquareInputs() {
         return squareInputs;
     }
 
-    public void setSquareInputs(boolean square)
-    {
+    public void setSquareInputs(boolean square) {
         squareInputs = square;
     }
 
     //driveType
-    public int getDriveType()
-    {
+    public int getDriveType() {
         return driveType;
     }
 
-    public void setDriveType(int drive)
-    {
+    public void setDriveType(int drive) {
         driveType = drive;
     }
 

@@ -40,18 +40,18 @@ public class RobotAuto extends Robot {
 
     }
 
-    //Takes a power and distance and translates that to the Robot.drive method TODO: Implement driveForward method
+    //Takes a power and distance and translates that to the Robot.drive method
     private void driveForward(double power, double distance)
     {
         if(hasEncoders) {
             driveForwardEncoders(power, distance);
             return;
         }
-        //find rpm of motors at full power
+        //TODO: find rpm of motors at full power
 
-        //multiply by abs value of power to get adjusted rpm
+        //TODO: multiply by abs value of power to get adjusted rpm
 
-        //divide rpm by distance to get rotations
+        //TODO: divide rpm by distance to get rotations
     }
 
     //TODO: Implement encoder support for driveForward
