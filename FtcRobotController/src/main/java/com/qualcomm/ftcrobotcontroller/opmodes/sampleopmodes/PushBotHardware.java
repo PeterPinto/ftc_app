@@ -615,7 +615,7 @@ public class PushBotHardware extends OpMode
             //
             // Has the encoder reached the specified values?
             //
-            // TODO Implement stall code using these variables.
+            //
             //
             if (Math.abs (v_motor_left_drive.getCurrentPosition ()) > p_count)
             {
@@ -653,7 +653,7 @@ public class PushBotHardware extends OpMode
             //
             // Have the encoders reached the specified values?
             //
-            // TODO Implement stall code using these variables.
+            //
             //
             if (Math.abs (v_motor_right_drive.getCurrentPosition ()) > p_count)
             {

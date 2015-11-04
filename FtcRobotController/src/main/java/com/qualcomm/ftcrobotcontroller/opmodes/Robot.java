@@ -1,9 +1,5 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-/**
- * Created by Peter on 11/2/2015.
- */
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.Range;
@@ -29,9 +25,6 @@ public class Robot {
 
     protected DcMotor leftMotor;
     protected DcMotor rightMotor;
-    private DcMotor peripheral1;
-    private DcMotor peripheral2;
-
 
     public Robot(int drive, DcMotor left, DcMotor right) {
 
@@ -64,33 +57,46 @@ public class Robot {
     {
         double leftPower, rightPower;
 
+        if(squareInputs)
+        {
+            leftX  = squareInput(leftX);
+            leftY  = squareInput(leftY);
+            rightX = squareInput(rightX);
+            rightY = squareInput(rightY);
+        }
+
         //Execute different drive code based on the driveType field
         switch(driveType)
         {
-            case TANK_DRIVE:
-                if(squareInputs)
-                {
-                    //square the left motor power
-                    if(leftY >= 0)
-                        leftPower = leftY * leftY;
-                    else
-                        leftPower = -(leftY * leftY);
+            case TANK_DRIVE:  //TODO: Test turning cap for Tank drive
+                leftPower = leftY;
+                rightPower = rightY;
 
-                    //square the right motor power
-                    if(rightY >= 0)
-                        rightPower = rightY * rightY;
-                    else
-                        rightPower = -(rightY * rightY);
-
-                } else {
-                    leftPower = leftY;
-                    rightPower = rightY;
-                }
+                if(Math.abs(leftPower - rightPower) >= 1)
+                    if(leftPower > 0)
+                    {
+                        leftPower  = .5;
+                        rightPower = -.5;
+                    } else {
+                        leftPower  = -.5;
+                        rightPower = .5;
+                    }
                 break;
 
-            case ARCADE_DRIVE:
-                leftPower = leftY + leftX;
-                rightPower = leftY - leftX;
+            case ARCADE_DRIVE: //TODO: Test turn cap for arcade drive
+                leftPower = leftY - leftX;
+                rightPower = leftY + leftX;
+
+                //Cap turning speed
+                if(Math.abs(leftPower - rightPower) >= 1)
+                    if(leftPower > 0)
+                    {
+                        leftPower  = .5;
+                        rightPower = -.5;
+                    } else {
+                        leftPower  = -.5;
+                        rightPower = .5;
+                    }
                 break;
 
             //Omni drive not yet implemented
@@ -113,6 +119,16 @@ public class Robot {
 
         leftMotor.setPower(left);
         rightMotor.setPower(right);
+    }
+
+    private double squareInput(double input)
+    {
+        if(input >= 0f)
+            input =   input * input;
+        else
+            input = -(input * input);
+
+        return input;
     }
 
     //Public get / set methods ***************************
