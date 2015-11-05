@@ -63,11 +63,11 @@ public class Robot {
 
         //Execute different drive code based on the driveType field
         switch (driveType) {
-            case TANK_DRIVE:  //TODO: Test turning cap for Tank drive
+            case TANK_DRIVE:
                 leftPower = leftY;
                 rightPower = rightY;
 
-                if (Math.abs(leftPower - rightPower) >= 1)
+                if (Math.abs(leftPower - rightPower) > 1)
                     if (leftPower > 0) {
                         leftPower = .5;
                         rightPower = -.5;
@@ -77,12 +77,12 @@ public class Robot {
                     }
                 break;
 
-            case ARCADE_DRIVE: //TODO: Test turn cap for arcade drive
+            case ARCADE_DRIVE:
                 leftPower = leftY - leftX;
                 rightPower = leftY + leftX;
 
                 //Cap turning speed
-                if (Math.abs(leftPower - rightPower) >= 1)
+                if (Math.abs(leftPower - rightPower) > 1)
                     if (leftPower > 0) {
                         leftPower = .5;
                         rightPower = -.5;
