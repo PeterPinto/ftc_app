@@ -16,6 +16,11 @@ import java.util.Timer;
  * be implemented in one by creating an object of this class.
  *
  * This is intended to be used with LinearOpMode, not OpMode
+ * To implement this class, create a LinearOpMode and use the method runOpMode and throw an InterruptedException
+ *      ex. public void runOpMode() throws InterruptedException { //Robot code }
+ * This method will not loop.  If looping function is desired use a while loop as follows,
+ *      while(opModeIsActive()) { //code to loop }
+ *
  */
 public class RobotAuto extends Robot {
 
@@ -23,8 +28,8 @@ public class RobotAuto extends Robot {
     private final static int DRIVE_TYPE = Robot.TANK_DRIVE;
 
     private boolean hasEncoders;
-    private double wheelRadius; //TODO: measure wheel radius in centimeters
-    private int fullPowerRPS = 2; //TODO: find rpm of motors at full power
+    private double wheelRadius = 5.3;//centimeters TODO: measure wheel radius in centimeters
+    private int fullPowerRPS = 2; //This depends on the battery level.  Use a best guess TODO: find rpm of motors at full power
     private double wheelCircumference;
 
     public RobotAuto(DcMotor left, DcMotor right, boolean encoders)
