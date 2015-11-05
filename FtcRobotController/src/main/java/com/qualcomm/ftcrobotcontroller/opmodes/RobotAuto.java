@@ -23,7 +23,7 @@ public class RobotAuto extends Robot {
     private final static int DRIVE_TYPE = Robot.TANK_DRIVE;
 
     private boolean hasEncoders;
-    private double wheelRadius; //TODO: measure wheel radius in centimenters
+    private double wheelRadius; //TODO: measure wheel radius in centimeters
     private int fullPowerRPS = 2; //TODO: find rpm of motors at full power
     private double wheelCircumference;
 
