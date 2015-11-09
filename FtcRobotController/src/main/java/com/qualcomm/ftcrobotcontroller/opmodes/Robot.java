@@ -142,6 +142,15 @@ public class Robot {
         driveType = drive;
     }
 
+    //return the left and right motors respectively
+    public DcMotor getLeftMotor()
+    {
+        return leftMotor;
+    }
 
+    public DcMotor getRightMotor()
+    {
+        return rightMotor;
+    }
     //****************************************************
 }

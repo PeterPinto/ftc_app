@@ -28,7 +28,7 @@ public class RobotAuto extends Robot {
     private final static int DRIVE_TYPE = Robot.TANK_DRIVE;
 
     private boolean hasEncoders;
-    private double wheelRadius = 5.3;//centimeters TODO: measure wheel radius in centimeters
+    private double wheelRadius = 5.25;//centimeters TODO: measure wheel radius in centimeters
     private int fullPowerRPS = 2; //This depends on the battery level.  Use a best guess TODO: find rpm of motors at full power
     private double wheelCircumference;
 
@@ -47,8 +47,8 @@ public class RobotAuto extends Robot {
         wheelCircumference = 2 * Math.PI * wheelRadius;
         if(hasEncoders)
         {
-            leftMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-            rightMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            getLeftMotor().setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            getRightMotor().setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         }
     }
 
@@ -75,7 +75,11 @@ public class RobotAuto extends Robot {
 
         drive( 0 , power, 0 , power );
 
-        wait(timeMilliSeconds);
+        long startTime = System.currentTimeMillis();
+        long endTime = startTime + timeMilliSeconds;
+
+        while(System.currentTimeMillis() < endTime)
+            continue;
         //Stop the robot
         drive(0,0,0,0);
 
@@ -88,7 +92,7 @@ public class RobotAuto extends Robot {
 
     }
 
-    //TODO: Implement turning methods
+    //2TODO: Implement turning methods
     private void turnLeft(int degrees)
     {
 

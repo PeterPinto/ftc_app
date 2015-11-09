@@ -1,7 +1,10 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.widget.Button;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Created by Peter on 11/3/2015.
