@@ -20,7 +20,10 @@ public class autonomousTest extends LinearOpMode {
         motor2 = hardwareMap.dcMotor.get("m2");
         robot = new RobotAuto(motor1, motor2, false);
 
-        robot.driveForward(0.1, 5.0);
+        robot.driveForward(.1, 100);
+
+        while(opModeIsActive())
+            robot.runAutonomous();
     }
 
 }

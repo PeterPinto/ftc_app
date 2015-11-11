@@ -22,6 +22,9 @@ import java.util.Timer;
  *      while(opModeIsActive()) { //code to loop }
  *
  */
+    enum State {drivingStraight, turning, done};
+
+
 public class RobotAuto extends Robot {
 
     private final static double TURN_SPEED = .25;
@@ -29,8 +32,13 @@ public class RobotAuto extends Robot {
 
     private boolean hasEncoders;
     private double wheelRadius = 5.25;//centimeters TODO: measure wheel radius in centimeters
-    private int fullPowerRPS = 2; //This depends on the battery level.  Use a best guess TODO: find rpm of motors at full power
+    private double fullPowerRPS = 11.3; //This depends on the battery level.  Use a best guess TODO: find rpm of motors at full power
     private double wheelCircumference;
+    private long millisRemaining;
+    private long previousMillis;
+    private double drivePower = 0;
+
+    private State state;
 
     public RobotAuto(DcMotor left, DcMotor right, boolean encoders)
     {
@@ -43,6 +51,7 @@ public class RobotAuto extends Robot {
 
     private void initRobotAuto()
     {
+        state = State.done;
         setSquareInputs(false);
         wheelCircumference = 2 * Math.PI * wheelRadius;
         if(hasEncoders)
@@ -54,45 +63,46 @@ public class RobotAuto extends Robot {
 
     public void runAutonomous()
     {
+        switch(state)
+        {
+            case drivingStraight:
+                millisRemaining -= (System.currentTimeMillis() - previousMillis);
+                previousMillis = System.currentTimeMillis();
+                if(millisRemaining >= 0) {
+                    drive(0, drivePower, 0, drivePower);
+                } else {
+                    state = State.done;
+                }
 
+                break;
+            case turning:
+                break;
+            case done:
+                drivePower = 0;
+                millisRemaining = 0;
+                drive(0,0,0,0);
+                break;
+        }
     }
 
     //Takes a power and distance and translates that to the Robot.drive method
-    public void driveForward(double power, double distance) throws InterruptedException
+    public void driveForward(double power, double distance)
     {
-        if(hasEncoders) {
-            driveForwardEncoders(power, distance);
-            return;
-        }
-
+        state = State.drivingStraight;
+        drivePower = power;
         //This method will always be inaccurate.  It is better to use encoders, one per each side.
-        int adjustedRPS = (int) power * fullPowerRPS;
+        double adjustedRPS = power * fullPowerRPS;
 
         double rotations = distance / wheelCircumference;
+        double timeSeconds = rotations * (1 / adjustedRPS);
+        double timeMilliSeconds = 1000 * timeSeconds;
 
-        double timeSeconds = rotations / adjustedRPS;
-        int timeMilliSeconds = (int) (1000 * timeSeconds);
-
-        drive( 0 , power, 0 , power );
-
-        long startTime = System.currentTimeMillis();
-        long endTime = startTime + timeMilliSeconds;
-
-        while(System.currentTimeMillis() < endTime)
-            continue;
-        //Stop the robot
-        drive(0,0,0,0);
-
+        millisRemaining = (int) timeMilliSeconds;
+        previousMillis = System.currentTimeMillis();
 
     }
 
-    //TODO: Implement encoder support for driveForward
-    private void driveForwardEncoders(double power, double distance)
-    {
-
-    }
-
-    //2TODO: Implement turning methods
+    //TODO: Implement turning methods
     private void turnLeft(int degrees)
     {
 
@@ -101,5 +111,9 @@ public class RobotAuto extends Robot {
     private void turnRight(int degrees)
     {
 
+    }
+
+    public State getState() {
+        return state;
     }
 }
