@@ -20,7 +20,16 @@ public class autonomousTest extends LinearOpMode {
         motor2 = hardwareMap.dcMotor.get("m2");
         robot = new RobotAuto(motor1, motor2, false);
 
-        robot.driveForward(.1, 100);
+        double drivePowerForward = .1;
+        double drivePowerReverse = -.1;
+        double drivePowerTurning = .05;
+
+        //Add the instructions for autonomous here
+        //ex.  robot.addInstruction(new AutoInstruction(State, drivePower, DistanceInCentimenters, DegreesToTurn));
+        robot.addInstruction(new AutoInstruction(State.drivingStraight, drivePowerForward, 100, 0));
+        robot.addInstruction(new AutoInstruction(State.drivingStraight, drivePowerReverse, 100, 0));
+        robot.addInstruction(new AutoInstruction(State.turning, drivePowerTurning, 0, 90));
+        robot.addInstruction(new AutoInstruction(State.turning, drivePowerTurning, 0, -90));
 
         while(opModeIsActive())
             robot.runAutonomous();

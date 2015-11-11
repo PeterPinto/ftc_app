@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Timer;
 
 /**
@@ -37,8 +39,8 @@ public class RobotAuto extends Robot {
     private long millisRemaining;
     private long previousMillis;
     private double drivePower = 0;
-
     private State state;
+    private Queue<AutoInstruction> instructions = new LinkedList<AutoInstruction>();
 
     public RobotAuto(DcMotor left, DcMotor right, boolean encoders)
     {
@@ -76,17 +78,38 @@ public class RobotAuto extends Robot {
 
                 break;
             case turning:
+                state = State.done;
                 break;
             case done:
-                drivePower = 0;
-                millisRemaining = 0;
-                drive(0,0,0,0);
+                if(!nextInstruction())
+                {
+                    drive(0,0,0,0);
+                }
                 break;
         }
     }
 
+    private boolean nextInstruction()
+    {
+        if(instructions.isEmpty())
+            return false;
+
+        AutoInstruction next = instructions.remove();
+        state = next.getState();
+
+        if(state == State.drivingStraight)
+        {
+            driveForward(next.getPower(), next.getDistance());
+        }
+        else if (state == State.turning)
+        {
+            //TODO: implement turning instruction;
+        }
+
+        return true;
+    }
     //Takes a power and distance and translates that to the Robot.drive method
-    public void driveForward(double power, double distance)
+    private void driveForward(double power, double distance)
     {
         state = State.drivingStraight;
         drivePower = power;
@@ -100,6 +123,11 @@ public class RobotAuto extends Robot {
         millisRemaining = (int) timeMilliSeconds;
         previousMillis = System.currentTimeMillis();
 
+    }
+
+    public void addInstruction(AutoInstruction inst)
+    {
+        instructions.add(inst);
     }
 
     //TODO: Implement turning methods
