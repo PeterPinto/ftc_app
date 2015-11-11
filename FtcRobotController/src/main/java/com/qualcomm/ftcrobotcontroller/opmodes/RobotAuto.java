@@ -1,13 +1,9 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Gamepad;
-
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Timer;
 
 /**
  * Created by Peter on 11/2/2015.
