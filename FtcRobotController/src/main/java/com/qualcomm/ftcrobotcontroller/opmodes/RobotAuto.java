@@ -32,7 +32,7 @@ public class RobotAuto extends Robot {
 
     private boolean hasEncoders;
     private double wheelRadius = 5.25;//centimeters TODO: measure wheel radius in centimeters
-    private double fullPowerRPS = 11.3; //This depends on the battery level.  Use a best guess TODO: find rpm of motors at full power
+    private double fullPowerRPS = 10; //This depends on the battery level.  Use a best guess TODO: find rpm of motors at full power
     private double wheelCircumference;
     private long millisRemaining;
     private long previousMillis;
