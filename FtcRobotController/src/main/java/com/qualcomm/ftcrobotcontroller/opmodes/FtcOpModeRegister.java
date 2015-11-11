@@ -61,7 +61,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("Arcade Drive TeleOp", basicArcadeDrive.class);
     manager.register("Tank Drive TeleOp", basicTankDrive.class);
-    manager.register("Autonomous", autonomousTest.class);
+    manager.register("Autonomous Test Mode", autonomousTest.class);
 
     //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
     //manager.register("K9TeleOp", K9TeleOp.class);
