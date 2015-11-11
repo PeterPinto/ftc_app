@@ -34,8 +34,9 @@ public class RobotAuto extends Robot {
     private final static int DRIVE_TYPE = Robot.TANK_DRIVE;
 
     private boolean hasEncoders;
-    private double wheelRadius = 5.25;//centimeters TODO: measure wheel radius in centimeters
-    private double fullPowerRPS = 10; //This depends on the battery level.  Use a best guess TODO: find rpm of motors at full power
+    private double wheelRadius;//In Centimeters TODO: measure wheel radius in centimeters
+    private double fullPowerRPS; //Rotations per second. Must be measured. For use with robots without encoders.  This depends on the battery level.  Use a best guess TODO: find rpm of motors at full power
+    private double fullPowerDPS; //Degrees per second. Must be measured.  For use with robots without encoders.
     private double wheelCircumference;
     private long millisRemaining;
     private long previousMillis;
@@ -55,6 +56,11 @@ public class RobotAuto extends Robot {
     private void initRobotAuto()
     {
         state = State.done;
+        //Defaults - change using set methods
+        wheelRadius = 5.25;
+        fullPowerRPS = 10;
+        fullPowerDPS = 20;
+
         setSquareInputs(false);
         wheelCircumference = 2 * Math.PI * wheelRadius;
         if(hasEncoders)
@@ -126,11 +132,6 @@ public class RobotAuto extends Robot {
 
     }
 
-    public void addInstruction(AutoInstruction inst)
-    {
-        instructions.add(inst);
-    }
-
     //TODO: Implement turning methods
     private void turnLeft(int degrees)
     {
@@ -144,5 +145,26 @@ public class RobotAuto extends Robot {
 
     public State getState() {
         return state;
+    }
+
+    public void setWheelRadius(double radius)
+    {
+        wheelRadius = radius;
+        wheelCircumference = 2 * Math.PI * wheelRadius;
+    }
+
+    public void setFullPowerRPS(double rps)
+    {
+        fullPowerRPS = rps;
+    }
+
+    public void setFullPowerDPS(double dps)
+    {
+        fullPowerDPS = dps;
+    }
+
+    public void addInstruction(AutoInstruction inst)
+    {
+        instructions.add(inst);
     }
 }
