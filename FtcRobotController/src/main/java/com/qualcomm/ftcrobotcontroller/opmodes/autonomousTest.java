@@ -15,7 +15,6 @@ public class autonomousTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        waitForStart();
         motor1 = hardwareMap.dcMotor.get("m1");
         motor2 = hardwareMap.dcMotor.get("m2");
         robot = new RobotAuto(motor1, motor2, false);
@@ -30,6 +29,8 @@ public class autonomousTest extends LinearOpMode {
         robot.addInstruction(new AutoInstruction(State.drivingStraight, drivePowerReverse, 100, 0));
         robot.addInstruction(new AutoInstruction(State.turning, drivePowerTurning, 0, 90));
         robot.addInstruction(new AutoInstruction(State.turning, drivePowerTurning, 0, -90));
+
+        waitForStart();
 
         while(opModeIsActive())
             robot.runAutonomous();
