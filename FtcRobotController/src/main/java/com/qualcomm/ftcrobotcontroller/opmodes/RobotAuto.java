@@ -24,8 +24,9 @@ import java.util.Timer;
  *      while(opModeIsActive()) { //code to loop }
  *
  */
-    enum State {drivingStraight, turning, done};
 
+    //Specifies what the robot is doing
+enum State {drivingStraight, turning, done};
 
 public class RobotAuto extends Robot {
 
