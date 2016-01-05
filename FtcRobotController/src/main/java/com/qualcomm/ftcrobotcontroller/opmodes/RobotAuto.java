@@ -53,8 +53,8 @@ public class RobotAuto extends Robot {
     {
         state = State.done;
         //Defaults - change using set methods
-        wheelRadius = 5.25;
-        fullPowerRPS = 10;
+        wheelRadius = 4.5;
+        fullPowerRPS = 3.1;
         fullPowerDPS = 20;
 
         setSquareInputs(false);
@@ -84,10 +84,8 @@ public class RobotAuto extends Robot {
                 state = State.done;
                 break;
             case done:
-                if(!nextInstruction())
-                {
-                    drive(0,0,0,0);
-                }
+                resetMotors();
+                nextInstruction();
                 break;
         }
     }
@@ -107,6 +105,9 @@ public class RobotAuto extends Robot {
         else if (state == State.turning)
         {
             //TODO: implement turning instruction;
+        } else if(state == State.done)
+        {
+            return false;
         }
 
         return true;
@@ -114,10 +115,9 @@ public class RobotAuto extends Robot {
     //Takes a power and distance and translates that to the Robot.drive method
     private void driveForward(double power, double distance)
     {
-        state = State.drivingStraight;
         drivePower = power;
         //This method will always be inaccurate.  It is better to use encoders, one per each side.
-        double adjustedRPS = power * fullPowerRPS;
+        double adjustedRPS = Math.abs(power) * fullPowerRPS;
 
         double rotations = distance / wheelCircumference;
         double timeSeconds = rotations * (1 / adjustedRPS);
@@ -137,10 +137,6 @@ public class RobotAuto extends Robot {
     private void turnRight(int degrees)
     {
 
-    }
-
-    public State getState() {
-        return state;
     }
 
     public void setWheelRadius(double radius)

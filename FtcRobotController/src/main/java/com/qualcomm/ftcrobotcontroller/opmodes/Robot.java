@@ -113,6 +113,12 @@ public class Robot {
         rightMotor.setPower(right);
     }
 
+    public void resetMotors()
+    {
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+    }
+
     private double squareInput(double input) {
         if (input >= 0f)
             input = input * input;
